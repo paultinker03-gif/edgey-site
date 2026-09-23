@@ -15,7 +15,7 @@
 <link rel="preload" as="font" type="font/woff2" href="fonts/fredoka-600.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/poppins-400.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/poppins-700.woff2" crossorigin>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=4a1f507f">
 </head>
 <body>
 <div class="sky"></div>
@@ -30,12 +30,14 @@
   </div>
 </nav>
 
-<header>
+<!-- "Get it" targets the whole hero, not the badge inside it: landing on the
+     badge alone scrolled the wordmark away and cut the top off the phone. -->
+<header id="get">
   <div class="wrap">
     <div>
       <h1 aria-label="Edgey"><span>E</span><span>D</span><span>G</span><span>E</span><span>Y</span><span class="dot" aria-hidden="true"></span></h1>
       <p class="lede">A puzzle about edges. Swap the tiles, turn them a quarter at a time, and make every touching pair agree.</p>
-      <div class="cta" id="get">
+      <div class="cta">
         <a class="badge" href="#" data-store="android" aria-label="Get it on Google Play"><img src="assets/google-play-badge.png" alt="Get it on Google Play"></a>
         <span class="btn soon" data-store="ios">App Store — coming soon</span>
       </div>

@@ -33,10 +33,16 @@
   --font: 'Poppins', 'Avenir Next', 'Futura', ui-rounded, system-ui,
           -apple-system, 'Segoe UI', Roboto, sans-serif;
   --maxw: 1080px;
+  --nav-h: 66px;          /* nav .wrap height; scroll-padding-top follows it */
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+/* The nav is sticky, so an anchor jump would otherwise park its target
+   underneath it - clicking "Get it" left the Play badge completely hidden
+   behind the header. scroll-padding-top keeps every in-page target clear of
+   the nav, plus a little air, and is derived from the nav's own height so the
+   two cannot drift apart. */
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 1px + 28px); }
 body {
   margin: 0; font-family: var(--font); color: var(--cream);
   background: #07383b; -webkit-font-smoothing: antialiased;
@@ -56,9 +62,19 @@ a { color: inherit; }
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
 
 /* ── nav ── */
-nav { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-      background: rgba(6,58,61,.32); border-bottom: 1px solid rgba(248,242,231,.1); }
-nav .wrap { display: flex; align-items: center; gap: 16px; height: 66px; }
+/* The blur sits on a pseudo-element BEHIND the content rather than on the nav
+   itself. With backdrop-filter on the nav, Chrome hands every child that needs
+   its own compositing layer - the GET IT pill's box-shadow, the wordmark's
+   drop-shadow - a rectangular patch of mis-sampled backdrop, which rendered as
+   hard-edged dark blocks behind the logo and the pill. Separating the glass
+   layer from the content layer keeps both the frost and the shadows. */
+nav { position: sticky; top: 0; z-index: 10; isolation: isolate; }
+nav::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  background: rgba(6,58,61,.32); border-bottom: 1px solid rgba(248,242,231,.1);
+}
+nav .wrap { display: flex; align-items: center; gap: 16px; height: var(--nav-h); }
 nav .mark { display: flex; align-items: center; gap: 13px; text-decoration: none; margin-right: auto; }
 nav .mark img { width: 42px; height: 42px; border-radius: 11px; }
 nav .mark b.wm {
