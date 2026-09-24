@@ -11,7 +11,12 @@
 <meta property="og:image" content="assets/icon.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="assets/icon.png">
+<!-- Small sizes get the bolt alone: at 16px the full icon's four pills and
+     mark collapse into noise. Anywhere it renders large - a shared link, a
+     home-screen shortcut - keeps the full icon. -->
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/icon.png">
 <link rel="preload" as="font" type="font/woff2" href="fonts/fredoka-600.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/poppins-400.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/poppins-700.woff2" crossorigin>
