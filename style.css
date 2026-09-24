@@ -173,21 +173,37 @@ h2 { font-size: clamp(26px, 4.2vw, 40px); font-weight: 600; letter-spacing: .07e
 .gr b { position: absolute; bottom: 7px; font-size: 9px; letter-spacing: .07em; text-transform: uppercase;
         color: rgba(248,242,231,.78); font-weight: 700; }
 
-/* The pink full stop, on both the hero wordmark and the nav lockup. Same
-   shape as a tile corner, because that is what it is. */
+/* The pink stop is a PILL, not a square: it echoes the four coloured pills in
+   the launcher icon, which is the only shape the two share. It keeps the
+   square's exact left edge and height - only the width grows rightwards - so
+   the measured gap between the Y and the stop is unchanged. Do not centre it
+   or the spacing work below is undone. */
 h1 .dot {
-  width: .17em; height: .17em; border-radius: 24%; margin-left: .0153em;
+  width: .34em; height: .17em; border-radius: 99px; margin-left: .0153em;
   background: var(--accent, #ff5c7a);
 }
 nav .mark .dot {
-  width: .17em; height: .17em; border-radius: 24%; margin-left: .0153em;
+  width: .34em; height: .17em; border-radius: 99px; margin-left: .0153em;
   background: var(--accent, #ff5c7a); display: inline-block;
 }
 
-/* Google's badge ships at a fixed aspect; height only, never restyled. */
-.badge { display: inline-block; line-height: 0; transition: transform .12s ease; }
+/* Google's badge ships at a fixed aspect; height only, never restyled.
+ *
+ * The PNG carries Google's mandated clear space INSIDE the image: 41px of
+ * padding on a 646x250 canvas, which is 16.4% of its height. So the element's
+ * box starts 11px left of anything you can see, and the button row sat indented
+ * from the paragraph above it. The negative margin pulls the box back by
+ * exactly that, so the badge's visible edge lines up with the text.
+ *
+ * Both numbers come from --badge-h, so changing the height keeps them in step.
+ */
+.cta { --badge-h: 68px; }
+.badge {
+  display: inline-block; line-height: 0; transition: transform .12s ease;
+  margin-left: calc(var(--badge-h) * -0.164);
+}
 .badge:hover { transform: translateY(-2px); }
-.badge img { height: 68px; width: auto; display: block; }
+.badge img { height: var(--badge-h); width: auto; display: block; }
 .btn.soon {
   height: 46px; border-radius: 7px; display: inline-flex; align-items: center;
   padding: 0 20px; font-size: 11.5px; letter-spacing: .1em;
